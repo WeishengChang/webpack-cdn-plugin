@@ -100,7 +100,8 @@ class WebpackCdnPlugin {
    */
   static getVersion(name) {
     try {
-      return require(path.join(WebpackCdnPlugin.node_modules, name, packageJson)).version;
+      let resolvedPath = require.resolve(name);
+      return require(path.join(resolvedPath.split(`/${name}/`)[0], name, packageJson)).version;
     } catch(e) {}
   }
 
